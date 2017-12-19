@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hap_org.core.map.mapper.OrgPositionBMapper">
+    <resultMap id="BaseResultMap" type="hap_org.core.map.dto.OrgPositionB">
+        <result column="POSITION_ID" property="positionId" jdbcType="DECIMAL" />
+        <result column="UNIT_ID" property="unitId" jdbcType="DECIMAL" />
+        <result column="POSITION_CODE" property="positionCode" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="PARENT_POSITION_ID" property="parentPositionId" jdbcType="DECIMAL" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertOrgPosition" parameterType="hap_org.core.map.dto.OrgPositionB">
+        insert into hr_org_position_b(POSITION_ID,UNIT_ID,POSITION_CODE,NAME,DESCRIPTION,PARENT_POSITION_ID,ENABLED_FLAG)
+        VALUES
+        (#{positionId,jdbcType=DECIMAL},
+        #{unitId,jdbcType=DECIMAL},
+        #{positionCode,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR},
+        #{parentPositionId,jdbcType=DECIMAL},
+        #{enabledFlag,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--<update id="updateStudents" parameterType="hap7.core.map.dto.Students">
+        UPDATE hr_org_unit_b oub
+        SET oub.STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+        sts.AGE = #{age,jdbcType=DECIMAL},
+        sts.BIRTHDAY = #{birthday,jdbcType=DATE}
+        WHERE sts.STUDENT_ID = #{studentId,jdbcType=DECIMAL}
+    </update>-->
+
+    <select id="queryAllOrgPosition" resultMap="BaseResultMap" parameterType="hap_org.core.map.dto.OrgPositionB" >
+        SELECT
+        *
+        FROM
+        hr_org_position_b opb
+        <where>
+            <if test="positionId!=null">
+                and opb.POSITION_ID = #{positionId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

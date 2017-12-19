@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hap_org.core.map.mapper.OrgUnitBMapper">
+    <resultMap id="BaseResultMap" type="hap_org.core.map.dto.OrgUnitB">
+        <result column="UNIT_ID" property="unitId" jdbcType="DECIMAL" />
+        <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+        <result column="UNIT_CODE" property="unitCode" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="MANAGER_POSITION" property="managerPosition" jdbcType="DECIMAL" />
+        <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+        <result column="UNIT_CATEGORY" property="unitCategory" jdbcType="VARCHAR" />
+        <result column="UNIT_TYPE" property="unitType" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertOrg" parameterType="hap_org.core.map.dto.OrgUnitB">
+        insert into hr_org_unit_b(UNIT_ID,PARENT_ID,UNIT_CODE,NAME,DESCRIPTION,MANAGER_POSITION,COMPANY_ID,ENABLED_FLAG,UNIT_CATEGORY,UNIT_TYPE)
+       <!-- <if test="managerPosition!=null">
+            ,MANAGER_POSITION
+        </if>-->
+        <!--<if test="managerPosition!=null">
+        ,MANAGER_POSITION
+    </if>
+        <if test="companyId!=null">
+            ,COMPANY_ID
+        </if>
+        <if test="enabledFlag!=null">
+            ,ENABLED_FLAG
+        </if>
+        <if test="unitCategory!=null">
+            ,UNIT_CATEGORY
+        </if>
+        <if test="unitType!=null">
+            ,UNIT_TYPE
+        </if>-->
+
+        VALUES
+        (#{unitId,jdbcType=DECIMAL},
+        #{parentId,jdbcType=DECIMAL},
+        #{unitCode,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR},
+       <!-- <if test="managerPosition!=null">
+            ,#{managerPosition,jdbcType=DECIMAL}
+        </if>
+        <if test="companyId!=null">
+            ,#{companyId,jdbcType=DECIMAL}
+        </if>
+        <if test="enabledFlag!=null">
+            ,#{enabledFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="unitCategory!=null">
+            ,#{unitCategory,jdbcType=VARCHAR}
+        </if>
+        <if test="unitType!=null">
+            ,#{unitType,jdbcType=VARCHAR}
+        </if>-->
+        #{managerPosition,jdbcType=DECIMAL},
+        #{companyId,jdbcType=DECIMAL},
+        #{enabledFlag,jdbcType=VARCHAR},
+        #{unitCategory,jdbcType=VARCHAR},
+        #{unitType,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--<update id="updateStudents" parameterType="hap7.core.map.dto.Students">
+        UPDATE hr_org_unit_b oub
+        SET oub.STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+        sts.AGE = #{age,jdbcType=DECIMAL},
+        sts.BIRTHDAY = #{birthday,jdbcType=DATE}
+        WHERE sts.STUDENT_ID = #{studentId,jdbcType=DECIMAL}
+    </update>-->
+
+    <select id="queryAll" resultMap="BaseResultMap" parameterType="hap_org.core.map.dto.OrgUnitB" >
+        SELECT
+        *
+        FROM
+        hr_org_unit_b oub
+        <where>
+            <if test="unitId!=null">
+                and oub.UNIT_ID = #{unitId}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hap_org.core.map.mapper.EmployeesMapper">
+    <resultMap id="BaseResultMap" type="hap_org.core.map.dto.Employee">
+        <result column="EMPLOYEE_ID" property="employeeId" jdbcType="DECIMAL" />
+        <result column="EMPLOYEE_CODE" property="employeeCode" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="BORN_DATE" property="bornDate" jdbcType="DATE" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="MOBIL" property="mobil" jdbcType="VARCHAR" />
+        <result column="JOIN_DATE" property="joinDate" jdbcType="DATE" />
+        <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_ID" property="certificateId" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+        <result column="CERTIFICATE_TYPE" property="certificateType" jdbcType="VARCHAR" />
+        <result column="EFFECTIVE_START_DATE" property="effectiveStartDate" jdbcType="DATE" />
+        <result column="EFFECTIVE_END_DATE" property="effectiveEndDate" jdbcType="DATE" />
+    </resultMap>
+
+    <insert id="insertEmployee" parameterType="hap_org.core.map.dto.Employee">
+        insert into hr_employee(EMPLOYEE_CODE,NAME,EMAIL,MOBIL,GENDER,CERTIFICATE_ID,STATUS,ENABLED_FLAG,CERTIFICATE_TYPE)
+        VALUES
+        (#{employeeCode,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},
+        #{mobil,jdbcType=VARCHAR},
+        #{gender,jdbcType=VARCHAR},
+        #{certificateId,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR},
+        #{enabledFlag,jdbcType=VARCHAR},
+        #{certificateType,jdbcType=VARCHAR}
+    <!--#{effectiveStartDate,jdbcType=DATE},
+    #{effectiveEndDate,jdbcType=DATE}-->
+
+    )
+</insert>
+
+<!--<update id="updateStudents" parameterType="hap7.core.map.dto.Students">
+    UPDATE hr_org_unit_b oub
+    SET oub.STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+    sts.AGE = #{age,jdbcType=DECIMAL},
+    sts.BIRTHDAY = #{birthday,jdbcType=DATE}
+    WHERE sts.STUDENT_ID = #{studentId,jdbcType=DECIMAL}
+</update>-->
+
+    <select id="queryAllEmployee" resultMap="BaseResultMap" parameterType="hap_org.core.map.dto.Employee" >
+        SELECT
+        *
+        FROM
+        hr_employee he
+        <where>
+            <if test="employeeId!=null">
+                and he.EMPLOYEE_ID = #{employeeId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

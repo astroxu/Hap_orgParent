@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hap_org.core.map.mapper.EmployeesAssignMapper">
+    <resultMap id="BaseResultMap" type="hap_org.core.map.dto.EmployeeAssign">
+        <result column="ASSIGN_ID" property="assignId" jdbcType="DECIMAL" />
+        <result column="EMPLOYEE_ID" property="employeeId" jdbcType="DECIMAL" />
+        <result column="POSITION_ID" property="positionId" jdbcType="DECIMAL" />
+        <result column="PRIMARY_POSITION_FLAG" property="primaryPositionFlag" jdbcType="VARCHAR" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertEmployeeAssign" parameterType="hap_org.core.map.dto.EmployeeAssign">
+        insert into hr_employee_assign(ASSIGN_ID,EMPLOYEE_ID,POSITION_ID,PRIMARY_POSITION_FLAG,ENABLED_FLAG)
+        VALUES
+        (#{assignId,jdbcType=DECIMAL},
+        #{employeeId,jdbcType=DECIMAL},
+        #{positionId,jdbcType=DECIMAL},
+        #{primaryPositionFlag,jdbcType=VARCHAR},
+        #{enabledFlag,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--<update id="updateStudents" parameterType="hap7.core.map.dto.Students">
+        UPDATE hr_org_unit_b oub
+        SET oub.STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+        sts.AGE = #{age,jdbcType=DECIMAL},
+        sts.BIRTHDAY = #{birthday,jdbcType=DATE}
+        WHERE sts.STUDENT_ID = #{studentId,jdbcType=DECIMAL}
+    </update>-->
+
+    <select id="queryAllEmployeeAssign" resultMap="BaseResultMap" parameterType="hap_org.core.map.dto.EmployeeAssign" >
+        SELECT
+        *
+        FROM
+        hr_employee_assign ea
+        <where>
+            <if test="assignId!=null">
+                and ea.ASSIGN_ID = #{assignId}
+            </if>
+        </where>
+    </select>
+
+</mapper>
